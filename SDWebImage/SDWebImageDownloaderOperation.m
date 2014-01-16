@@ -324,6 +324,23 @@
     [self done];
 }
 
+-(NSURLRequest *)connection: (NSURLConnection *)connection
+            willSendRequest: (NSURLRequest *)request
+           redirectResponse: (NSURLResponse *)redirectResponse;
+{
+    NSInteger status = [((NSHTTPURLResponse*)redirectResponse) statusCode];
+    
+    if(status > 300 && status<400)
+    {
+        [self connection:connection didFailWithError:[NSError errorWithDomain:@"Redirect Void" code:1 userInfo:nil]];
+        return nil;
+    }
+    else
+    {
+        return request;
+    }
+}
+
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
     responseFromCached = NO; // If this method is called, it means the response wasn't read from cache
     if (self.request.cachePolicy == NSURLRequestReloadIgnoringLocalCacheData) {
