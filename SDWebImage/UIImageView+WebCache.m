@@ -40,6 +40,7 @@ static char operationArrayKey;
 
 - (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options progress:(SDWebImageDownloaderProgressBlock)progressBlock completed:(SDWebImageCompletedBlock)completedBlock {
     [self cancelCurrentImageLoad];
+    [self cancelCurrentArrayLoad];
 
     self.image = placeholder;
 
