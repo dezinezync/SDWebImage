@@ -395,8 +395,8 @@
            redirectResponse: (NSURLResponse *)redirectResponse;
 {
     NSInteger status = [((NSHTTPURLResponse*)redirectResponse) statusCode];
-    
-    if(status > 300 && status<400)
+	
+    if((status > 300 && status<400) || [request.URL.absoluteString containsString:@"photo_unavailable.gif"])
     {
         [self connection:connection didFailWithError:[NSError errorWithDomain:@"Redirect Void" code:1 userInfo:nil]];
         return nil;
